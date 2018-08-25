@@ -1,0 +1,50 @@
+Sub Stock_Test_Easy()
+
+  ' Set an initial variable for holding the stock ticker
+  Dim stock_ticker As String
+  'Dim year As Integer
+  
+
+  ' Set an initial variable for holding the total per credit card brand
+  Dim Volume_Total As Double
+  Volume_Total = 0
+
+  ' Keep track of the location for each credit card brand in the summary table
+  Dim Summary_Table_Row As Integer
+  Summary_Table_Row = 2
+
+  ' Loop through all ticker volumes.  For 2014 705714, for year 2015, 760192 and for year 2016, 797711
+  For i = 2 To 797711
+
+    ' Check if we are still within the same stock ticker, if it is not...
+    If Cells(i + 1, 1).Value <> Cells(i, 1).Value Then
+
+      ' Set the stock_ticker
+      stock_ticker = Cells(i, 1).Value
+
+      ' Add to the Volume Total
+      Volume_Total = Volume_Total + Cells(i, 7).Value
+
+      ' Print the ticker symbol in the Summary Table
+      Range("O" & Summary_Table_Row).Value = stock_ticker
+
+      ' Print the volume Amount to the Summary Table
+      Range("P" & Summary_Table_Row).Value = Volume_Total
+
+      ' Add one to the summary table row
+      Summary_Table_Row = Summary_Table_Row + 1
+      
+      ' Reset the volume Total
+      Volume_Total = 0
+
+    ' If the cell immediately following a row is the same brand...
+    Else
+
+      ' Add to the volume Total
+      Volume_Total = Volume_Total + Cells(i, 7).Value
+
+    End If
+
+  Next i
+
+End Sub
